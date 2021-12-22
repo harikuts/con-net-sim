@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  node1:
+    image: pydock
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      delnet:
+        ipv4_address: 172.16.238.2
+  node2:
+    image: pydock
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      delnet:
+        ipv4_address: 172.16.238.3
+
+networks:
+  delnet:
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
+    
