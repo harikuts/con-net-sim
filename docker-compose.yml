@@ -17,6 +17,14 @@ services:
     networks:
       delnet:
         ipv4_address: 172.16.238.3
+  node3:
+    image: pydock
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      delnet:
+        ipv4_address: 172.16.238.3
 
 networks:
   delnet:
