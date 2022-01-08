@@ -1,5 +1,5 @@
 """
-Transmission Service: Sends out messages to other connected nodes.
+Receiver Service: Accepts messages from other nodes and saves them.
 
 Phase 1: Basic Operation
 It should just send a generic broadcast message.
@@ -9,9 +9,3 @@ It should just send a generic broadcast message.
 NODELIST = "nodelist.txt"
 
 import socket
-
-# Get hostnames
-with open(NODELIST, 'r') as f:
-    nodelist = f.read().strip().split()
-
-print(nodelist)
