@@ -6,12 +6,25 @@ It should just send a generic broadcast message.
 """
 
 # Globals
-NODELIST = "nodelist.txt"
+NODELIST_FN = "nodelist.txt"
+PORT = 1245
 
+import time
 import socket
+import random
 
 # Get hostnames
-with open(NODELIST, 'r') as f:
+with open(NODELIST_FN, 'r') as f:
     nodelist = f.read().strip().split()
 
-print(nodelist)
+# Messaging loop.
+while True:
+    for host in nodelist:
+        time.sleep(random.randint(0, 5))
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            s.connect((host, PORT))
+            s.send(f"Hello! - {socket.gethostname()}")
+            s.close()
+        except Exception as e:
+            print(f"Failed to connect to {host}. Skipping.")
