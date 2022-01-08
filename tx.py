@@ -24,7 +24,8 @@ while True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             s.connect((host, PORT))
-            s.send(f"Hello! - {socket.gethostname()}")
+            s.send(f"Hello! - {socket.gethostname()}".encode("utf-8"))
             s.close()
         except Exception as e:
-            print(f"Failed to connect to {host}. Skipping.")
+            pass
+            # print(f"Failed to connect to {host}. Skipping.")
