@@ -9,6 +9,7 @@ It should just accept incoming messages. Kinda like a server.
 NODELIST_FN = "nodelist.txt"
 # Arbitrary network values.
 PORT = 1245
+DATASIZE = 1024
 
 import socket
 
@@ -30,12 +31,18 @@ s.listen(len(nodelist))
 while True:
     # Accept a connection.
     conn, address = s.accept()
-    print(f"Connected to {address}!")
+    print(f"Connected to {address[0]}!")
     # Get stream of data.
+    data_exists = False
+    full_data = ""
     while True:
-        data = conn.recv(1024).decode()
+        data = conn.recv(DATASIZE).decode()
         # Break if no more data is streaming.
         if not data:
             break
-        print (f"({address}) {data}")
+        else:
+            full_data += data
+            data_exists = True
+    if data_exists:
+        print (f"({address[0]}) {full_data}")
     conn.close()
