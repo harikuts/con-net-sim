@@ -28,4 +28,4 @@ while True:
             s.close()
         except Exception as e:
             pass
-            # print(f"Failed to connect to {host}. Skipping.")
+            print(f"Failed to connect to {host}. Skipping.")

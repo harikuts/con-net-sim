@@ -12,26 +12,12 @@ PORT = 1245
 DATASIZE = 1024
 
 import socket
+from _thread import *
+import threading
 
-# Get information from nodelist.
-with open(NODELIST_FN, 'r') as f:
-    nodelist = f.read().strip().split()
+rx_lock = threading.Lock()
 
-# Get network interface information.
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = socket.gethostname()
-# Choose arbitary port.
-port = PORT
-
-# Bind, listen, and connect to the port.
-s.bind((host, port))
-s.listen(len(nodelist))
-
-# Looping listening service.
-while True:
-    # Accept a connection.
-    conn, address = s.accept()
-    print(f"Connected to {address[0]}!")
+def rx_thread(conn, address):
     # Get stream of data.
     data_exists = False
     full_data = ""
@@ -39,6 +25,7 @@ while True:
         data = conn.recv(DATASIZE).decode()
         # Break if no more data is streaming.
         if not data:
+            rx_lock.release()
             break
         else:
             full_data += data
@@ -46,3 +33,34 @@ while True:
     if data_exists:
         print (f"({address[0]}) {full_data}")
     conn.close()
+
+def main():
+    # Get information from nodelist.
+    with open(NODELIST_FN, 'r') as f:
+        nodelist = f.read().strip().split()
+
+    # Get network interface information.
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = socket.gethostname()
+    # Choose arbitary port.
+    port = PORT
+
+    # Bind, listen, and connect to the port.
+    s.bind((host, port))
+
+
+    s.listen(len(nodelist))
+    # Looping listening service.
+    while True:
+        # Accept a connection.
+        conn, address = s.accept()
+        rx_lock.acquire()
+        print(f"Connected to {address[0]}!")
+        # Dispatch the thread
+        start_new_thread(rx_thread, (conn, address,))
+    s.close()
+
+        
+
+if __name__ == "__main__":
+    main()
