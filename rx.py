@@ -5,15 +5,20 @@ Phase 1: Basic Operation
 It should just accept incoming messages. Kinda like a server.
 """
 
-# File information.
-NODELIST_FN = "nodelist.txt"
-# Arbitrary network values.
-PORT = 1245
-DATASIZE = 1024
-
 import socket
 from _thread import *
 import threading
+import os
+
+# File I/O information.
+NODELIST_FN = "nodelist.txt"
+STORED_FN = "message.txt"
+CUR_DIR = os.getcwd()
+INBOX_PATH = os.path.join(CUR_DIR, "inbox")
+
+# Arbitrary network values.
+PORT = 1245
+DATASIZE = 1024
 
 rx_lock = threading.Lock()
 
@@ -30,8 +35,14 @@ def rx_thread(conn, address):
         else:
             full_data += data
             data_exists = True
+    # If there is data, print and store it.
     if data_exists:
-        print (f"({address[0]}) {full_data}")
+        print (f"({address[0]}) {full_data.strip()}")
+        # Store in the inbox.
+        store_path = os.path.join(INBOX_PATH, address[0], STORED_FN)
+        with open(store_path, 'w') as f:
+            f.write(full_data)
+        print (f"--> {store_path}")
     conn.close()
 
 def main():
