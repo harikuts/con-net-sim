@@ -37,7 +37,7 @@ def rx_thread(conn, address):
             data_exists = True
     # If there is data, print and store it.
     if data_exists:
-        print (f"({address[0]}) {full_data.strip()}")
+        print (f"({address[0]}) {full_data.strip()}", end=" ")
         # Store in the inbox.
         store_path = os.path.join(INBOX_PATH, address[0], STORED_FN)
         with open(store_path, 'w') as f:
