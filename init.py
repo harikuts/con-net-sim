@@ -1,6 +1,9 @@
-import os
+"""
+Initialization Process: Creates directory structure and runs any 
+other specific initialization processes.
+"""
 
-from rx import NODELIST_FN
+import os
 
 NODELIST_FN = "nodelist.txt"
 

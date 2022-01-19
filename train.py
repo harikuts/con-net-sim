@@ -1,3 +1,10 @@
+"""
+Training Service: Trains models on local data, then publishes new model.
+
+Phase 1: Basic Operation
+Just publishes a timestamp.
+"""
+
 # Basic version should just publish time stamp to the outbox.
 import os
 import time
