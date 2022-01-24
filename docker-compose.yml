@@ -1,6 +1,18 @@
 version: '3.4'
 
 services:
+  ns3-box:
+    image: ns3
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: ./ns3/Dockerfile
+    volumes:
+      - ./ns3/ns-3-dev:/ns-3-dev:bind
+    networks:
+      delnet:
+        ipv4_address: 172.16.238.2
   node1:
     image: pydock
     build:
@@ -8,7 +20,7 @@ services:
       dockerfile: ./Dockerfile
     networks:
       delnet:
-        ipv4_address: 172.16.238.2
+        ipv4_address: 172.16.238.11
   node2:
     image: pydock
     build:
@@ -16,7 +28,7 @@ services:
       dockerfile: ./Dockerfile
     networks:
       delnet:
-        ipv4_address: 172.16.238.3
+        ipv4_address: 172.16.238.12
   node3:
     image: pydock
     build:
@@ -24,7 +36,8 @@ services:
       dockerfile: ./Dockerfile
     networks:
       delnet:
-        ipv4_address: 172.16.238.4
+        ipv4_address: 172.16.238.13
+
 
 networks:
   delnet:
