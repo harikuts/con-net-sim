@@ -1,0 +1,1 @@
+docker run -itd -w /ns-3-dev -v "$(pwd)"/ns-3-dev:/ns-3-dev ns3
