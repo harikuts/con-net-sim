@@ -3,14 +3,17 @@ version: '3.4'
 services:
   ns3-box:
     image: ns3
-    stdin_open: true
-    tty: true
     build:
       context: .
       dockerfile: ./ns3/Dockerfile
     volumes:
       # Set the first part of the option to your ns-3 installation.
-      - /Users/harikuts/playground/ns-3/ns-allinone-3.35/ns-3.35:/ns-3-dev:bind
+      - /Users/harikuts/playground/ns-3/ns-allinone-3.35/ns-3.35:/ns-3:bind
+    command: >
+      "./waf configure --enable-tests --enable-examples --out=build/debian 
+      && ./waf --run scratch/scratch-simulator"
+    stdin_open: true
+    tty: true
     networks:
       delnet:
         ipv4_address: 172.16.238.2

@@ -14,7 +14,9 @@ RUN apt-get install -y git build-essential python3-dev gdb htop
 # Clone, configure and build ns3
 # COPY . .
 # RUN git clone https://gitlab.com/nsnam/ns-3-dev.git
-# RUN cd ns-3-dev && ./waf configure --enable-examples --enable-tests --enable-mpi && ./waf build
+# RUN cd ns-3 && ./waf configure --enable-examples --enable-tests --enable-mpi && ./waf build
 
-WORKDIR /ns-3-dev
-ENTRYPOINT [ "/bin/bash" ]
+# Set working directory to guest directory that will bind to host ns-3.
+WORKDIR /ns-3
+# Set entry point.
+ENTRYPOINT [ "/bin/bash", "-c"]
