@@ -9,7 +9,8 @@ services:
       context: .
       dockerfile: ./ns3/Dockerfile
     volumes:
-      - ./ns3/ns-3-dev:/ns-3-dev:bind
+      # Set the first part of the option to your ns-3 installation.
+      - /Users/harikuts/playground/ns-3/ns-allinone-3.35/ns-3.35:/ns-3-dev:bind
     networks:
       delnet:
         ipv4_address: 172.16.238.2
