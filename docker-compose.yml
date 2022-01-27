@@ -10,7 +10,7 @@ services:
       # Set the first part of the option to your ns-3 installation.
       - /Users/harikuts/playground/ns-3/ns-allinone-3.35/ns-3.35:/ns-3:bind
     command: >
-      "./waf configure --enable-tests --enable-examples --out=build/debian 
+      "./waf configure --build-profile=optimized --enable-tests --enable-examples --out=build/debian 
       && ./waf --run scratch/scratch-simulator"
     stdin_open: true
     tty: true
