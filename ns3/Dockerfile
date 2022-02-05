@@ -8,6 +8,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install essential binaries.
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y git build-essential python3-dev gdb htop
+# Get bridge utilities.
+RUN apt-get install bridge-utils
 # Install for ARM compatibility
 # RUN apt-get install -y binfmt-support qemu qemu-user-static
 
