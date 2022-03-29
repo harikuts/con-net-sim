@@ -22,6 +22,8 @@ services:
     build:
       context: ./del-app
       dockerfile: ./Dockerfile
+    volumes:
+        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node1/client.data:/app/data/client.data'
     networks:
       delnet:
         ipv4_address: 172.16.238.11
@@ -30,6 +32,8 @@ services:
     build:
       context: ./del-app
       dockerfile: ./Dockerfile
+    volumes:
+        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node2/client.data:/app/data/client.data'
     networks:
       delnet:
         ipv4_address: 172.16.238.12
@@ -38,6 +42,8 @@ services:
     build:
       context: ./del-app
       dockerfile: ./Dockerfile
+    volumes:
+        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node3/client.data:/app/data/client.data'
     networks:
       delnet:
         ipv4_address: 172.16.238.13
