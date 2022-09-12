@@ -1,29 +1,14 @@
 version: '3.4'
 
 services:
-  ns3-box:
-    image: ns3
-    build:
-      context: .
-      dockerfile: ./ns3/Dockerfile
-    volumes:
-      # Set the first part of the option to your ns-3 installation.
-      - /Users/harikuts/playground/ns-3/ns-allinone-3.35/ns-3.35:/ns-3:bind
-    command: >
-      "./waf configure --build-profile=optimized --enable-tests --enable-examples --out=build/debian 
-      && ./waf --run scratch/scratch-simulator"
-    stdin_open: true
-    tty: true
-    networks:
-      delnet:
-        ipv4_address: 172.16.238.2
   node1:
     image: pydock
     build:
       context: ./del-app
       dockerfile: ./Dockerfile
     volumes:
-        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node1/client.data:/app/data/client.data'
+        - './del-app/data_repo/node1/client.data:/app/data/client.data'
+        - './del-app/data_repo/node1/fashion-mnist_train.csv:/app/data/fashion-mnist.csv'
     networks:
       delnet:
         ipv4_address: 172.16.238.11
@@ -33,7 +18,8 @@ services:
       context: ./del-app
       dockerfile: ./Dockerfile
     volumes:
-        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node2/client.data:/app/data/client.data'
+        - './del-app/data_repo/node2/client.data:/app/data/client.data'
+        - './del-app/data_repo/node2/fashion-mnist_train.csv:/app/data/fashion-mnist.csv'
     networks:
       delnet:
         ipv4_address: 172.16.238.12
@@ -43,7 +29,8 @@ services:
       context: ./del-app
       dockerfile: ./Dockerfile
     volumes:
-        - '/Users/harikuts/playground/python-docker/del-app/data_repo/node3/client.data:/app/data/client.data'
+        - './del-app/data_repo/node3/client.data:/app/data/client.data'
+        - './del-app/data_repo/node3/fashion-mnist_train.csv:/app/data/fashion-mnist.csv'
     networks:
       delnet:
         ipv4_address: 172.16.238.13
